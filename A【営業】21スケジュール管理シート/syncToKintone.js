@@ -13,19 +13,19 @@ function updateFieldWhenUpdate(e) {
   // Get the column letter
   const columnLetter = String.fromCharCode(64 + column);
 
-  const isFieldOfClientManApp = clientManColumns.some(
-    (column) => column.colId === columnLetter
+  const isRequiredFieldOfClientManApp = clientManColumns.some(
+    (column) => column.colId === columnLetter && column.isRequired === true
   );
-  const isFieldOfBusinessProcessApp = businessProcessColumns.some(
-    (column) => column.colId === columnLetter
+  const isRequiredFieldOfBusinessProcessApp = businessProcessColumns.some(
+    (column) => column.colId === columnLetter && column.isRequired === true
   );
-  const isFieldOfContactManApp = contactManColumns.some(
-    (column) => column.colId === columnLetter
+  const isRequiredFieldOfContactManApp = contactManColumns.some(
+    (column) => column.colId === columnLetter && column.isRequired === true
   );
 
   const clientId = sheet.getRange(row, 1).getValue(); // Assuming column A has record IDs
 
-  if (isFieldOfClientManApp) {
+  if (isRequiredFieldOfClientManApp) {
     updateRecordWhenUpdateCell({
       apiToken: appAccess.clientManApp.apiToken,
       appId: appAccess.clientManApp.appId,
@@ -39,7 +39,7 @@ function updateFieldWhenUpdate(e) {
     });
   }
 
-  if (isFieldOfBusinessProcessApp) {
+  if (isRequiredFieldOfBusinessProcessApp) {
     updateRecordWhenUpdateCell({
       apiToken: appAccess.businessProcessApp.apiToken,
       appId: appAccess.businessProcessApp.appId,
@@ -53,7 +53,7 @@ function updateFieldWhenUpdate(e) {
     });
   }
 
-  if (isFieldOfContactManApp) {
+  if (isRequiredFieldOfContactManApp) {
     updateRecordWhenUpdateCell({
       apiToken: appAccess.contactManApp.apiToken,
       appId: appAccess.contactManApp.appId,
