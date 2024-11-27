@@ -131,7 +131,10 @@ function addRecordToKintoneAppWhenUpdate(e, columns, apiToken, appId) {
   const editedColumnMapping = columns.find(
     ({ colId }) => columnLetterToIndex(colId) === editedCol
   );
-  if (!editedColumnMapping) return; // Exit if the edited column is not relevant
+  if (!editedColumnMapping) {
+     console.log('Edited column is not relevant to the kintone app')
+    return;
+  }
 
   // Fetch the row data
   const headerRow = sheet
@@ -145,7 +148,11 @@ function addRecordToKintoneAppWhenUpdate(e, columns, apiToken, appId) {
   const isReadyForKintone = columns
     .filter((item) => item.isRequired === true)
     .every(({ colId }) => row[columnLetterToIndex(colId) - 1] !== "");
-  if (!isReadyForKintone) return; // Exit if required columns are not populated
+
+  if (!isReadyForKintone) {
+    console.log("Need to input all required fields!");
+    return; 
+  }
 
   // Prepare the record to send to Kintone
   const record = {};
@@ -165,6 +172,6 @@ function addRecordToKintoneAppWhenUpdate(e, columns, apiToken, appId) {
     appId: appId,
     record: record,
     uniqueKey: "顧客番号",
-    uniqueVal: row[columnLetterToIndex["A"] - 1],
+    uniqueVal: row[columnLetterToIndex("A") - 1],
   });
 }
