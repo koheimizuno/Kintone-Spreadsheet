@@ -1,0 +1,55 @@
+/* Styling for the tab container */
+.tabs {
+  background-color: #fff;
+  border-bottom: 1px solid #e3e7e8;
+}
+
+.tabs ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+
+.tabs .tab {
+  padding: 10px 20px;
+  background-color: #e9f3fb;
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+.tabs .tab.active {
+  background-color: #448aca;
+  color: white;
+}
+
+.tabs .tab:hover {
+  background-color: #b3d0e7;
+}
+
+/* .control-group-gaia {
+  border: none;
+} */
+
+.group-label-gaia {
+  display: none;
+}
+
+.row-gaia .control-gaia.control-group-gaia {
+  width: 100%;
+  padding: 30px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.row-gaia {
+  margin-left: 0px;
+  margin-bottom: 0px;
+  display: flex;
+  gap: 20px;
+}
+
+.showlayout-gaia .row-gaia .control-value-gaia {
+  padding: 8px 10px;
+}
