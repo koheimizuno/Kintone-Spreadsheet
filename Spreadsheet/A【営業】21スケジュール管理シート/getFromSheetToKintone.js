@@ -91,17 +91,17 @@ function addRecordsToKintone() {
     uniqueKey: "顧客番号",
   });
 
-  addMultipleRecords({
-    dataList: businessProcessDataList,
-    apiToken: `${appAccess.businessProcessApp.apiToken}, ${appAccess.clientManApp.apiToken}`,
-    appId: appAccess.businessProcessApp.appId,
-    uniqueKey: "顧客番号",
-  });
+  // addMultipleRecords({
+  //   dataList: businessProcessDataList,
+  //   apiToken: `${appAccess.businessProcessApp.apiToken}, ${appAccess.clientManApp.apiToken}`,
+  //   appId: appAccess.businessProcessApp.appId,
+  //   uniqueKey: "顧客番号",
+  // });
 
-  addMultipleRecords({
-    dataList: contactManAppDataList,
-    apiToken: `${appAccess.contactManApp.apiToken}, ${appAccess.clientManApp.apiToken}`,
-    appId: appAccess.contactManApp.appId,
-    uniqueKey: "顧客番号",
-  });
+  // addMultipleRecords({
+  //   dataList: contactManAppDataList,
+  //   apiToken: `${appAccess.contactManApp.apiToken}, ${appAccess.clientManApp.apiToken}`,
+  //   appId: appAccess.contactManApp.appId,
+  //   uniqueKey: "顧客番号",
+  // });
 }
