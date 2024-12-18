@@ -1,0 +1,64 @@
+function addRecordToKintoneAppWhenUpdate(e, columns, apiToken, appId) {
+  const sheet = e.source.getActiveSheet();
+  const range = e.range;
+  const editedRow = range.getRow();
+  const editedCol = range.getColumn();
+  const lastRow = sheet.getLastRow();
+
+  if (editedRow < lastRow) {
+    console.log("Not need to add record!");
+    return;
+  }
+
+  // Check if the edited column is part of the mapped columns
+  const editedColumnMapping = columns.find(
+    ({ colId }) => columnLetterToIndex(colId) === editedCol
+  );
+
+  if (!editedColumnMapping) {
+    console.log("Edited column is not relevant to the kintone app");
+    return;
+  }
+
+  // Fetch the row data
+  const headerRow = sheet
+    .getRange(headerRowIndex, 1, 1, sheet.getLastColumn())
+    .getValues()[0];
+
+  const row = sheet
+    .getRange(editedRow, 1, 1, sheet.getLastColumn())
+    .getValues()[0];
+
+  const isReadyForKintone =
+    row[columnLetterToIndex(uniqueGColumnLetter) - 1] !== "";
+
+  if (!isReadyForKintone) {
+    console.log("Need to input unique key field!");
+    return;
+  }
+
+  // Prepare the record to send to Kintone
+  const record = {};
+  const uniqueVal = row[columnLetterToIndex(uniqueGColumnLetter) - 1];
+  columns.forEach(({ colId, isDateField }) => {
+    const header = headerVerification(
+      headerRow[columnLetterToIndex(colId) - 1]
+    );
+    const value = row[columnLetterToIndex(colId) - 1];
+    record[header] = {
+      value: value
+        ? isDateField
+          ? new Date(value).toISOString().split("T")[0]
+          : value
+        : "",
+    };
+  });
+
+  checkSingleRecord({
+    apiToken: apiToken,
+    appId: appId,
+    record: record,
+    uniqueKey: uniqueGFieldKey,
+    uniqueVal: uniqueVal,
+  });
+}
