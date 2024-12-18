@@ -37,7 +37,7 @@ function addMultipleRecords({ dataList, apiToken, appId, uniqueKey }) {
       }
     });
 
-    addSingleRecord({
+    checkSingleRecord({
       apiToken: apiToken,
       appId: appId,
       record: record,

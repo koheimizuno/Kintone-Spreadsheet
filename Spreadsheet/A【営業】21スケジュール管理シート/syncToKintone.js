@@ -167,7 +167,7 @@ function addRecordToKintoneAppWhenUpdate(e, columns, apiToken, appId) {
     };
   });
 
-  addSingleRecord({
+  checkSingleRecord({
     apiToken: apiToken,
     appId: appId,
     record: record,

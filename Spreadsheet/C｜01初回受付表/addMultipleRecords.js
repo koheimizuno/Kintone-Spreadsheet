@@ -76,32 +76,12 @@ function addMultipleRecords({ dataList, apiToken, appId, uniqueKey }) {
       record[header] = { value: row[colIndex] };
     });
 
-    try {
-      const singleRecordForCheck = getRecordByField({
-        apiToken: apiToken,
-        appId: appId,
-        uniqueKey: uniqueKey,
-        uniqueVal: uniqueVal,
-      });
-
-      if (singleRecordForCheck) {
-        updateSingleRecord({
-          apiToken: apiToken,
-          appId: appId,
-          recordId: singleRecordForCheck.$id.value,
-          record: record,
-        });
-      } else {
-        updateSingleRecord({
-          apiToken: apiToken,
-          appId: appId,
-          record: record,
-        });
-      }
-    } catch (error) {
-      console.error(
-        `Error checking for existing record or adding row : ${error.message}`
-      );
-    }
+    checkSingleRecord({
+      apiToken: apiToken,
+      appId: appId,
+      record: record,
+      uniqueKey: uniqueKey,
+      uniqueVal: uniqueVal,
+    });
   });
 }
