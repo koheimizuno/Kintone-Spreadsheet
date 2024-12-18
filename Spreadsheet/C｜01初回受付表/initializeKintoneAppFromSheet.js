@@ -50,7 +50,7 @@ const clientManColumns = [
   { colId: "AY", isDateField: false },
 ];
 
-function addRecordsToKintone() {
+function initializeKintoneAppFromSheet() {
   let clientManAppDataList = clientManColumns.map((item) =>
     getColumnListById(item)
   );
