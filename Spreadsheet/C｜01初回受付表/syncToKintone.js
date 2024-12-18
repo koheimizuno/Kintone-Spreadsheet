@@ -7,7 +7,7 @@ function addRecordToClientManAppWhenUpdate(e) {
   });
 }
 
-function deleteRecordWhenDeleteRow(e) {
+function deleteRecordToClientManAppWhenDeleteRow(e) {
   const sheet = e.source.getActiveSheet();
   const range = e.range;
   const editedRow = range.getRow();
@@ -22,7 +22,7 @@ function deleteRecordWhenDeleteRow(e) {
     .every(({ colId }) => row[columnLetterToIndex(colId) - 1] !== "");
 }
 
-function updateFieldWhenUpdate(e) {
+function updateFieldToClientManAppWhenUpdate(e) {
   updateRecordWhenUpdateCell({
     e: e,
     columns: clientManColumns,

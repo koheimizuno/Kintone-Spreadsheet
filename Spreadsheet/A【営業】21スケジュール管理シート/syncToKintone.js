@@ -7,7 +7,7 @@ function addRecordToClientManAppWhenUpdate(e) {
   );
 }
 
-function updateFieldWhenUpdate(e) {
+function updateFieldToClientManAppWhenUpdate(e) {
   updateRecordWhenUpdateCell({
     e: e,
     columns: clientManColumns,
