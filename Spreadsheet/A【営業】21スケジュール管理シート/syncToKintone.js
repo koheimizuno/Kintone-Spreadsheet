@@ -23,7 +23,6 @@ function updateFieldWhenUpdate(e) {
     return;
   }
 
-  const uniqueKey = "・代表者様氏名_フルネーム";
   const uniqueVal = sheet
     .getRange(row, columnLetterToIndex("G"))
     .getValue()
@@ -32,7 +31,7 @@ function updateFieldWhenUpdate(e) {
   updateRecordWhenUpdateCell({
     apiToken: appAccess.clientManApp.apiToken,
     appId: appAccess.clientManApp.appId,
-    uniqueKey: uniqueKey,
+    uniqueKey: uniqueGKey,
     uniqueVal: uniqueVal,
     record: {
       [header]: {
@@ -77,24 +76,6 @@ function updateRecordWhenUpdateCell({
 //   );
 // }
 
-// function addRecordToBusinessProcessAppWhenUpdate(e) {
-//   addRecordToKintoneAppWhenUpdate(
-//     e,
-//     businessProcessColumns,
-//     `${appAccess.businessProcessApp.apiToken}, ${appAccess.clientManApp.apiToken}`,
-//     appAccess.businessProcessApp.appId
-//   );
-// }
-
-// function addRecordToContactManAppWhenUpdate(e) {
-//   addRecordToKintoneAppWhenUpdate(
-//     e,
-//     contactManColumns,
-//     `${appAccess.contactManApp.apiToken}, ${appAccess.clientManApp.apiToken}`,
-//     appAccess.contactManApp.appId
-//   );
-// }
-
 function addRecordToKintoneAppWhenUpdate(e, columns, apiToken, appId) {
   const sheet = e.source.getActiveSheet();
   const range = e.range;
@@ -119,9 +100,7 @@ function addRecordToKintoneAppWhenUpdate(e, columns, apiToken, appId) {
     .getValues()[0];
 
   // Check if all required columns are populated
-  const isReadyForKintone = columns
-    .filter((item) => item.isRequired === true)
-    .every(({ colId }) => row[columnLetterToIndex(colId) - 1] !== "");
+  const isReadyForKintone = row[columnLetterToIndex("G") - 1] !== "";
 
   if (!isReadyForKintone) {
     console.log("Need to input all required fields!");

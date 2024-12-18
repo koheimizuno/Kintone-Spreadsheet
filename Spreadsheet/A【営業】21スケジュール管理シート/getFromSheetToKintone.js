@@ -13,6 +13,7 @@ const mainSheet =
 
 const headerRowIndex = 5;
 const currentDataRowCount = mainSheet.getLastRow() - 4;
+const uniqueGKey = "・代表者様氏名_フルネーム";
 
 // 顧客管理
 const clientManColumns = [
@@ -32,6 +33,6 @@ function addRecordsToKintone() {
     dataList: clientManAppDataList,
     apiToken: appAccess.clientManApp.apiToken,
     appId: appAccess.clientManApp.appId,
-    uniqueKey: "・代表者様氏名_フルネーム",
+    uniqueKey: uniqueGKey,
   });
 }

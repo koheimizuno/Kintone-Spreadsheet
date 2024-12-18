@@ -25,7 +25,6 @@ function updateFieldWhenUpdate(e) {
     return;
   }
 
-  const uniqueKey = "・代表者様氏名_フルネーム";
   const uniqueVal = sheet
     .getRange(row, columnLetterToIndex("D"))
     .getValue()
@@ -34,7 +33,7 @@ function updateFieldWhenUpdate(e) {
   updateRecordWhenUpdateCell({
     apiToken: appAccess.clientManApp.apiToken,
     appId: appAccess.clientManApp.appId,
-    uniqueKey: uniqueKey,
+    uniqueKey: uniqueGKey,
     uniqueVal: uniqueVal,
     record: {
       [header]: {
