@@ -27,10 +27,6 @@
   background-color: #b3d0e7;
 }
 
-/* .control-group-gaia {
-  border: none;
-} */
-
 .group-label-gaia {
   display: none;
 }
@@ -52,4 +48,12 @@
 
 .showlayout-gaia .row-gaia .control-value-gaia {
   padding: 8px 10px;
+}
+
+/* Custom Button */
+#user-js-client-self-wrapper,
+#user-js-client-partner-wrapper {
+  position: absolute;
+  bottom: 0;
+  right: 0;
 }
