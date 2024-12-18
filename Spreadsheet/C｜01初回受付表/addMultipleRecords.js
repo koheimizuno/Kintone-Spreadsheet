@@ -32,11 +32,11 @@ function addMultipleRecords({ dataList, apiToken, appId, uniqueKey }) {
     }
 
     if (header.includes("、")) {
-      header = header.replace(/、/g, ",");
+      header = header.replace(/、/g, "_");
     }
 
     if (header.includes("：")) {
-      header = header.replace(/：/g, ":");
+      header = header.replace(/：/g, "_");
     }
 
     if (header.includes("「")) {
@@ -47,8 +47,14 @@ function addMultipleRecords({ dataList, apiToken, appId, uniqueKey }) {
       header = header.replace(/」/g, "・");
     }
 
+    if (header.includes("\n")) {
+      header = header.replace(/\n/g, "_n");
+    }
+
     return header;
   });
+
+  console.log(headers);
 
   const rows = Array.from({ length: dataList[0].length - 1 }, () => []);
 
@@ -66,7 +72,7 @@ function addMultipleRecords({ dataList, apiToken, appId, uniqueKey }) {
     }
 
     const record = {};
-    const uniqueVal = row[headers.indexOf(uniqueKey)];
+    const uniqueVal = row[headers.indexOf(uniqueKey)].trim();
 
     headers.forEach((header, colIndex) => {
       record[header] = { value: row[colIndex] };

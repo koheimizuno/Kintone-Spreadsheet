@@ -1,5 +1,13 @@
 function addMultipleRecords({ dataList, apiToken, appId, uniqueKey }) {
-  const headers = dataList.map((item) => item[0][0]);
+  const headers = dataList.map((item) => {
+    let header = item[0][0].replace(/（/g, "_").replace(/）/g, "");
+
+    if (header === "お名前") {
+      return "・代表者様氏名_フルネーム";
+    }
+
+    return header;
+  });
 
   const rows = Array.from({ length: dataList[0].length - 1 }, () => []);
 
@@ -17,10 +25,16 @@ function addMultipleRecords({ dataList, apiToken, appId, uniqueKey }) {
     }
 
     const record = {};
-    const id = row[headers.indexOf(uniqueKey)];
+    const uniqueVal = row[headers.indexOf(uniqueKey)]
+      .trim()
+      .replace(/\s+/g, "");
 
     headers.forEach((header, colIndex) => {
-      record[header] = { value: row[colIndex] };
+      if (header === "・代表者様氏名_フルネーム") {
+        record[header] = { value: row[colIndex].replace(/\s+/g, "") };
+      } else {
+        record[header] = { value: row[colIndex] };
+      }
     });
 
     addSingleRecord({
@@ -28,7 +42,7 @@ function addMultipleRecords({ dataList, apiToken, appId, uniqueKey }) {
       appId: appId,
       record: record,
       uniqueKey: uniqueKey,
-      uniqueVal: id,
+      uniqueVal: uniqueVal,
     });
   });
 }

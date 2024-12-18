@@ -24,9 +24,7 @@ const currentDataRowCount = mainSheet.getLastRow() - 4;
 
 // 顧客管理
 const clientManColumns = [
-  { colId: "A", isDateField: false, isRequired: true },
   { colId: "G", isDateField: false, isRequired: true },
-  { colId: "F", isDateField: false, isRequired: true },
   { colId: "T", isDateField: false, isRequired: true },
   { colId: "U", isDateField: false, isRequired: true },
   { colId: "V", isDateField: false, isRequired: true },
@@ -89,7 +87,7 @@ function addRecordsToKintone() {
     dataList: clientManAppDataList,
     apiToken: appAccess.clientManApp.apiToken,
     appId: appAccess.clientManApp.appId,
-    uniqueKey: "顧客番号",
+    uniqueKey: "・代表者様氏名_フルネーム",
   });
 
   // addMultipleRecords({

@@ -1,26 +1,19 @@
 function addSingleRecord({ apiToken, appId, record, uniqueKey, uniqueVal }) {
-  const query = `${uniqueKey} = "${uniqueVal}"`;
-  const options = {
-    method: "get",
-    headers: {
-      "X-Cybozu-API-Token": apiToken,
-    },
-    muteHttpExceptions: true,
-  };
-
   try {
-    const response = UrlFetchApp.fetch(
-      `${kintoneDomain}/k/v1/records.json?app=${appId}&query=${encodeURIComponent(
-        query
-      )}`,
-      options
-    );
-    const responseData = JSON.parse(response.getContentText());
+    const singleRecordForCheck = getRecordByField({
+      apiToken: apiToken,
+      appId: appId,
+      uniqueKey: uniqueKey,
+      uniqueVal: uniqueVal,
+    });
 
-    if (responseData.records?.length > 0) {
-      console.log(
-        `Record with ${uniqueKey} ${uniqueVal} already exists. Skipping sync.`
-      );
+    if (singleRecordForCheck) {
+      updateSingleRecord({
+        apiToken: apiToken,
+        appId: appId,
+        recordId: singleRecordForCheck.$id.value,
+        record: record,
+      });
     } else {
       const postOptions = {
         method: "post",

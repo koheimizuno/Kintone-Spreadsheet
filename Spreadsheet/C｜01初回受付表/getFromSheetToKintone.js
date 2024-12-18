@@ -44,6 +44,7 @@ const clientManColumns = [
   { colId: "AU", isDateField: false, isRequired: false },
   { colId: "AV", isDateField: false, isRequired: false },
   { colId: "AW", isDateField: false, isRequired: false },
+  { colId: "AX", isDateField: false, isRequired: false },
   { colId: "AY", isDateField: false, isRequired: false },
 ];
 

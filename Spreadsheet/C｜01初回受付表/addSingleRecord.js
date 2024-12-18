@@ -1,13 +1,4 @@
 function addSingleRecord({ apiToken, appId, record, uniqueKey, uniqueVal }) {
-  const query = `${uniqueKey} = "${uniqueVal}"`;
-  const options = {
-    method: "get",
-    headers: {
-      "X-Cybozu-API-Token": apiToken,
-    },
-    muteHttpExceptions: true,
-  };
-
   try {
     const singleRecordForCheck = getRecordByField({
       apiToken: apiToken,
