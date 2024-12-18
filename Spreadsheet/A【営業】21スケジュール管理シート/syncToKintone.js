@@ -7,65 +7,39 @@ function updateFieldWhenUpdate(e) {
   const row = range.getRow();
   const column = range.getColumn();
   const header = sheet.getRange(headerRowIndex, column).getValue();
-
-  if (!header) return;
-
-  // Get the column letter
   const columnLetter = String.fromCharCode(64 + column);
 
-  const isRequiredFieldOfClientManApp = clientManColumns.some(
-    (column) => column.colId === columnLetter && column.isRequired === true
-  );
-  const isRequiredFieldOfBusinessProcessApp = businessProcessColumns.some(
-    (column) => column.colId === columnLetter && column.isRequired === true
-  );
-  const isRequiredFieldOfContactManApp = contactManColumns.some(
-    (column) => column.colId === columnLetter && column.isRequired === true
-  );
-
-  const clientId = sheet.getRange(row, 1).getValue(); // Assuming column A has record IDs
-
-  if (isRequiredFieldOfClientManApp) {
-    updateRecordWhenUpdateCell({
-      apiToken: appAccess.clientManApp.apiToken,
-      appId: appAccess.clientManApp.appId,
-      uniqueKey: "顧客番号",
-      uniqueVal: clientId,
-      record: {
-        [header]: {
-          value: value,
-        },
-      },
-    });
+  if (!header) {
+    console.log("Not header!");
+    return;
   }
 
-  if (isRequiredFieldOfBusinessProcessApp) {
-    updateRecordWhenUpdateCell({
-      apiToken: appAccess.businessProcessApp.apiToken,
-      appId: appAccess.businessProcessApp.appId,
-      uniqueKey: "顧客番号",
-      uniqueVal: clientId,
-      record: {
-        [header]: {
-          value: value,
-        },
-      },
-    });
+  const isFieldOfClientManApp = clientManColumns.some(
+    (column) => column.colId === columnLetter
+  );
+
+  if (!isFieldOfClientManApp) {
+    console.log("Not field of client man app!");
+    return;
   }
 
-  if (isRequiredFieldOfContactManApp) {
-    updateRecordWhenUpdateCell({
-      apiToken: appAccess.contactManApp.apiToken,
-      appId: appAccess.contactManApp.appId,
-      uniqueKey: "顧客番号",
-      uniqueVal: clientId,
-      record: {
-        [header]: {
-          value: value,
-        },
+  const uniqueKey = "・代表者様氏名_フルネーム";
+  const uniqueVal = sheet
+    .getRange(row, columnLetterToIndex("G"))
+    .getValue()
+    .replace(/\s+/g, "");
+
+  updateRecordWhenUpdateCell({
+    apiToken: appAccess.clientManApp.apiToken,
+    appId: appAccess.clientManApp.appId,
+    uniqueKey: uniqueKey,
+    uniqueVal: uniqueVal,
+    record: {
+      [header]: {
+        value: value,
       },
-    });
-  }
+    },
+  });
 }
 
 function updateRecordWhenUpdateCell({
@@ -94,32 +68,32 @@ function updateRecordWhenUpdateCell({
   });
 }
 
-function addRecordToClientManAppWhenUpdate(e) {
-  addRecordToKintoneAppWhenUpdate(
-    e,
-    clientManColumns,
-    appAccess.clientManApp.apiToken,
-    appAccess.clientManApp.appId
-  );
-}
+// function addRecordToClientManAppWhenUpdate(e) {
+//   addRecordToKintoneAppWhenUpdate(
+//     e,
+//     clientManColumns,
+//     appAccess.clientManApp.apiToken,
+//     appAccess.clientManApp.appId
+//   );
+// }
 
-function addRecordToBusinessProcessAppWhenUpdate(e) {
-  addRecordToKintoneAppWhenUpdate(
-    e,
-    businessProcessColumns,
-    `${appAccess.businessProcessApp.apiToken}, ${appAccess.clientManApp.apiToken}`,
-    appAccess.businessProcessApp.appId
-  );
-}
+// function addRecordToBusinessProcessAppWhenUpdate(e) {
+//   addRecordToKintoneAppWhenUpdate(
+//     e,
+//     businessProcessColumns,
+//     `${appAccess.businessProcessApp.apiToken}, ${appAccess.clientManApp.apiToken}`,
+//     appAccess.businessProcessApp.appId
+//   );
+// }
 
-function addRecordToContactManAppWhenUpdate(e) {
-  addRecordToKintoneAppWhenUpdate(
-    e,
-    contactManColumns,
-    `${appAccess.contactManApp.apiToken}, ${appAccess.clientManApp.apiToken}`,
-    appAccess.contactManApp.appId
-  );
-}
+// function addRecordToContactManAppWhenUpdate(e) {
+//   addRecordToKintoneAppWhenUpdate(
+//     e,
+//     contactManColumns,
+//     `${appAccess.contactManApp.apiToken}, ${appAccess.clientManApp.apiToken}`,
+//     appAccess.contactManApp.appId
+//   );
+// }
 
 function addRecordToKintoneAppWhenUpdate(e, columns, apiToken, appId) {
   const sheet = e.source.getActiveSheet();
