@@ -6,7 +6,7 @@ function updateFieldWhenUpdate(e) {
   // Get the row and column of the edited cell
   const row = range.getRow();
   const column = range.getColumn();
-  const header = sheet.getRange(5, column).getValue();
+  const header = sheet.getRange(headerRowIndex, column).getValue();
 
   if (!header) return;
 
@@ -132,13 +132,13 @@ function addRecordToKintoneAppWhenUpdate(e, columns, apiToken, appId) {
     ({ colId }) => columnLetterToIndex(colId) === editedCol
   );
   if (!editedColumnMapping) {
-     console.log('Edited column is not relevant to the kintone app')
+    console.log("Edited column is not relevant to the kintone app");
     return;
   }
 
   // Fetch the row data
   const headerRow = sheet
-    .getRange(5, 1, 1, sheet.getLastColumn())
+    .getRange(headerRowIndex, 1, 1, sheet.getLastColumn())
     .getValues()[0];
   const row = sheet
     .getRange(editedRow, 1, 1, sheet.getLastColumn())
@@ -151,7 +151,7 @@ function addRecordToKintoneAppWhenUpdate(e, columns, apiToken, appId) {
 
   if (!isReadyForKintone) {
     console.log("Need to input all required fields!");
-    return; 
+    return;
   }
 
   // Prepare the record to send to Kintone

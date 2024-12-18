@@ -14,12 +14,13 @@ const appAccess = {
   },
 };
 
-const clientListSheet =
+const mainSheet =
   SpreadsheetApp.getActiveSpreadsheet().getSheetByName(
     "【顧客リスト】2408～2507"
   );
 
-const currentDataRowCount = clientListSheet.getLastRow() - 4;
+const headerRowIndex = 5;
+const currentDataRowCount = mainSheet.getLastRow() - 4;
 
 // 顧客管理
 const clientManColumns = [
