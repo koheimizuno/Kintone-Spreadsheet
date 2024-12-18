@@ -81,6 +81,12 @@ function addRecordToKintoneAppWhenUpdate(e, columns, apiToken, appId) {
   const range = e.range;
   const editedRow = range.getRow();
   const editedCol = range.getColumn();
+  const lastRow = sheet.getLastRow();
+
+  if (editedRow < lastRow) {
+    console.log("Not need to add record!");
+    return;
+  }
 
   // Check if the edited column is part of the mapped columns
   const editedColumnMapping = columns.find(
