@@ -1,11 +1,7 @@
 function addMultipleRecords({ dataList, apiToken, appId, uniqueKey }) {
   const headers = dataList.map((item) => {
-    let header = item[0][0].replace(/（/g, "_").replace(/）/g, "");
-
-    if (header === "お名前") {
-      return "・代表者様氏名_フルネーム";
-    }
-
+    let header = item[0][0];
+    header = headerVerification(header);
     return header;
   });
 

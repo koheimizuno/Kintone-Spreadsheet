@@ -86,6 +86,7 @@ function addRecordToKintoneAppWhenUpdate(e, columns, apiToken, appId) {
   const editedColumnMapping = columns.find(
     ({ colId }) => columnLetterToIndex(colId) === editedCol
   );
+
   if (!editedColumnMapping) {
     console.log("Edited column is not relevant to the kintone app");
     return;
@@ -95,6 +96,7 @@ function addRecordToKintoneAppWhenUpdate(e, columns, apiToken, appId) {
   const headerRow = sheet
     .getRange(headerRowIndex, 1, 1, sheet.getLastColumn())
     .getValues()[0];
+
   const row = sheet
     .getRange(editedRow, 1, 1, sheet.getLastColumn())
     .getValues()[0];
@@ -109,9 +111,13 @@ function addRecordToKintoneAppWhenUpdate(e, columns, apiToken, appId) {
 
   // Prepare the record to send to Kintone
   const record = {};
+  const uniqueVal = row[columnLetterToIndex(uniqueGColumnLetter) - 1];
   columns.forEach(({ colId, isDateField }) => {
+    const header = headerVerification(
+      headerRow[columnLetterToIndex(colId) - 1]
+    );
     const value = row[columnLetterToIndex(colId) - 1];
-    record[headerRow[columnLetterToIndex(colId) - 1]] = {
+    record[header] = {
       value: value
         ? isDateField
           ? new Date(value).toISOString().split("T")[0]
@@ -125,6 +131,6 @@ function addRecordToKintoneAppWhenUpdate(e, columns, apiToken, appId) {
     appId: appId,
     record: record,
     uniqueKey: uniqueGFieldKey,
-    uniqueVal: row[columnLetterToIndex(uniqueGColumnLetter) - 1],
+    uniqueVal: uniqueVal,
   });
 }
