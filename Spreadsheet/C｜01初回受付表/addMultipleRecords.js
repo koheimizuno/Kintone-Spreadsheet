@@ -54,8 +54,6 @@ function addMultipleRecords({ dataList, apiToken, appId, uniqueKey }) {
     return header;
   });
 
-  console.log(headers);
-
   const rows = Array.from({ length: dataList[0].length - 1 }, () => []);
 
   dataList.forEach((data) => {
@@ -78,12 +76,32 @@ function addMultipleRecords({ dataList, apiToken, appId, uniqueKey }) {
       record[header] = { value: row[colIndex] };
     });
 
-    addSingleRecord({
-      apiToken: apiToken,
-      appId: appId,
-      record: record,
-      uniqueKey: uniqueKey,
-      uniqueVal: uniqueVal,
-    });
+    try {
+      const singleRecordForCheck = getRecordByField({
+        apiToken: apiToken,
+        appId: appId,
+        uniqueKey: uniqueKey,
+        uniqueVal: uniqueVal,
+      });
+
+      if (singleRecordForCheck) {
+        updateSingleRecord({
+          apiToken: apiToken,
+          appId: appId,
+          recordId: singleRecordForCheck.$id.value,
+          record: record,
+        });
+      } else {
+        updateSingleRecord({
+          apiToken: apiToken,
+          appId: appId,
+          record: record,
+        });
+      }
+    } catch (error) {
+      console.error(
+        `Error checking for existing record or adding row : ${error.message}`
+      );
+    }
   });
 }
