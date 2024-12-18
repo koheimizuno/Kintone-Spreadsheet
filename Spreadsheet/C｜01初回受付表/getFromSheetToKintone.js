@@ -13,11 +13,12 @@ const mainSheet =
 
 const headerRowIndex = 2;
 const currentDataRowCount = mainSheet.getLastRow() - 1;
-const uniqueGKey = "・代表者様氏名_フルネーム";
+const uniqueGFieldKey = "・代表者様氏名_フルネーム";
+const uniqueGColumnLetter = "D";
 
 // 顧客管理
 const clientManColumns = [
-  { colId: "D", isDateField: false },
+  { colId: uniqueGColumnLetter, isDateField: false },
   { colId: "E", isDateField: false },
   { colId: "H", isDateField: false },
   { colId: "I", isDateField: false },
@@ -58,6 +59,6 @@ function addRecordsToKintone() {
     dataList: clientManAppDataList,
     apiToken: appAccess.clientManApp.apiToken,
     appId: appAccess.clientManApp.appId,
-    uniqueKey: uniqueGKey,
+    uniqueKey: uniqueGFieldKey,
   });
 }

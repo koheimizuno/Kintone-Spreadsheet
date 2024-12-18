@@ -26,14 +26,14 @@ function updateFieldWhenUpdate(e) {
   }
 
   const uniqueVal = sheet
-    .getRange(row, columnLetterToIndex("D"))
+    .getRange(row, columnLetterToIndex(uniqueGColumnLetter))
     .getValue()
     .replace(/\s+/g, "");
 
   updateRecordWhenUpdateCell({
     apiToken: appAccess.clientManApp.apiToken,
     appId: appAccess.clientManApp.appId,
-    uniqueKey: uniqueGKey,
+    uniqueKey: uniqueGFieldKey,
     uniqueVal: uniqueVal,
     record: {
       [header]: {

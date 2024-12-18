@@ -24,14 +24,14 @@ function updateFieldWhenUpdate(e) {
   }
 
   const uniqueVal = sheet
-    .getRange(row, columnLetterToIndex("G"))
+    .getRange(row, columnLetterToIndex(uniqueGColumnLetter))
     .getValue()
     .replace(/\s+/g, "");
 
   updateRecordWhenUpdateCell({
     apiToken: appAccess.clientManApp.apiToken,
     appId: appAccess.clientManApp.appId,
-    uniqueKey: uniqueGKey,
+    uniqueKey: uniqueGFieldKey,
     uniqueVal: uniqueVal,
     record: {
       [header]: {
@@ -67,14 +67,14 @@ function updateRecordWhenUpdateCell({
   });
 }
 
-// function addRecordToClientManAppWhenUpdate(e) {
-//   addRecordToKintoneAppWhenUpdate(
-//     e,
-//     clientManColumns,
-//     appAccess.clientManApp.apiToken,
-//     appAccess.clientManApp.appId
-//   );
-// }
+function addRecordToClientManAppWhenUpdate(e) {
+  addRecordToKintoneAppWhenUpdate(
+    e,
+    clientManColumns,
+    appAccess.clientManApp.apiToken,
+    appAccess.clientManApp.appId
+  );
+}
 
 function addRecordToKintoneAppWhenUpdate(e, columns, apiToken, appId) {
   const sheet = e.source.getActiveSheet();
@@ -99,11 +99,11 @@ function addRecordToKintoneAppWhenUpdate(e, columns, apiToken, appId) {
     .getRange(editedRow, 1, 1, sheet.getLastColumn())
     .getValues()[0];
 
-  // Check if all required columns are populated
-  const isReadyForKintone = row[columnLetterToIndex("G") - 1] !== "";
+  const isReadyForKintone =
+    row[columnLetterToIndex(uniqueGColumnLetter) - 1] !== "";
 
   if (!isReadyForKintone) {
-    console.log("Need to input all required fields!");
+    console.log("Need to input unique key field!");
     return;
   }
 
@@ -124,7 +124,7 @@ function addRecordToKintoneAppWhenUpdate(e, columns, apiToken, appId) {
     apiToken: apiToken,
     appId: appId,
     record: record,
-    uniqueKey: "顧客番号",
-    uniqueVal: row[columnLetterToIndex("A") - 1],
+    uniqueKey: uniqueGFieldKey,
+    uniqueVal: row[columnLetterToIndex(uniqueGColumnLetter) - 1],
   });
 }
