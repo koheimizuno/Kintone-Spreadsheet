@@ -1,7 +1,12 @@
 function getColumnListById(item) {
   if (item.isDateField)
     return mainSheet
-      .getRange(headerRowIndex, columnLetterToIndex(item.colId), currentDataRowCount, 1)
+      .getRange(
+        headerRowIndex,
+        columnLetterToIndex(item.colId),
+        currentDataRowCount,
+        1
+      )
       .getValues()
       .filter((_, i) => i !== 1)
       .map((item, key) => {
@@ -13,7 +18,12 @@ function getColumnListById(item) {
       });
   else
     return mainSheet
-      .getRange(headerRowIndex, columnLetterToIndex(item.colId), currentDataRowCount, 1)
+      .getRange(
+        headerRowIndex,
+        columnLetterToIndex(item.colId),
+        currentDataRowCount,
+        1
+      )
       .getValues()
       .filter((_, i) => i !== 1);
 }
