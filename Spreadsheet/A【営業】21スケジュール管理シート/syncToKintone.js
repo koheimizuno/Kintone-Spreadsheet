@@ -8,44 +8,10 @@ function addRecordToClientManAppWhenUpdate(e) {
 }
 
 function updateFieldWhenUpdate(e) {
-  const sheet = e.source.getActiveSheet();
-  const range = e.range;
-  const value = e.value;
-
-  // Get the row and column of the edited cell
-  const row = range.getRow();
-  const column = range.getColumn();
-  const header = sheet.getRange(headerRowIndex, column).getValue();
-  const columnLetter = String.fromCharCode(64 + column);
-
-  if (!header) {
-    console.log("Not header!");
-    return;
-  }
-
-  const isFieldOfClientManApp = clientManColumns.some(
-    (column) => column.colId === columnLetter
-  );
-
-  if (!isFieldOfClientManApp) {
-    console.log("Not field of client man app!");
-    return;
-  }
-
-  const uniqueVal = sheet
-    .getRange(row, columnLetterToIndex(uniqueGColumnLetter))
-    .getValue()
-    .replace(/\s+/g, "");
-
   updateRecordWhenUpdateCell({
+    e: e,
+    columns: clientManColumns,
     apiToken: appAccess.clientManApp.apiToken,
     appId: appAccess.clientManApp.appId,
-    uniqueKey: uniqueGFieldKey,
-    uniqueVal: uniqueVal,
-    record: {
-      [header]: {
-        value: value,
-      },
-    },
   });
 }

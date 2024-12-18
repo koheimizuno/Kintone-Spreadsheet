@@ -1,4 +1,4 @@
-function addRecordToKintoneAppWhenUpdate(e, columns, apiToken, appId) {
+function addRecordToKintoneAppWhenUpdate({ e, columns, apiToken, appId }) {
   const sheet = e.source.getActiveSheet();
   const range = e.range;
   const editedRow = range.getRow();
@@ -10,13 +10,8 @@ function addRecordToKintoneAppWhenUpdate(e, columns, apiToken, appId) {
     return;
   }
 
-  // Check if the edited column is part of the mapped columns
-  const editedColumnMapping = columns.find(
-    ({ colId }) => columnLetterToIndex(colId) === editedCol
-  );
-
-  if (!editedColumnMapping) {
-    console.log("Edited column is not relevant to the kintone app");
+  if (editedCol !== columnLetterToIndex(uniqueGColumnLetter)) {
+    console.log("Not edited unique field column!");
     return;
   }
 
