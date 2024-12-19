@@ -1,0 +1,12 @@
+{
+  "app": "6",
+  "scope": "ALL",
+  "desktop": {
+    "js": ["https://js.kintone.com/jquery/3.7.1/jquery.min.js", "main-pc.js"],
+    "css": ["style-pc.css"]
+  },
+  "mobile": {
+    "js": [],
+    "css": []
+  }
+}

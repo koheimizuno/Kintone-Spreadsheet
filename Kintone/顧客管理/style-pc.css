@@ -31,23 +31,33 @@
   display: none;
 }
 
-.row-gaia .control-gaia.control-group-gaia {
+.row-gaia .control-gaia {
+  padding: 0 18px;
+}
+
+.row-gaia .control-gaia:not(:last-child) {
+  /* border-right: 1px solid red; */
+}
+
+.row-gaia.clearFix-cybozu .control-gaia.control-group-gaia {
   width: 100%;
   padding: 30px 20px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
 }
 
 .row-gaia {
   margin-left: 0px;
   margin-bottom: 0px;
   display: flex;
-  gap: 20px;
 }
 
 .showlayout-gaia .row-gaia .control-value-gaia {
   padding: 8px 10px;
+}
+
+.control-design-gaia {
+  height: 20px;
 }
 
 /* Custom Button */
