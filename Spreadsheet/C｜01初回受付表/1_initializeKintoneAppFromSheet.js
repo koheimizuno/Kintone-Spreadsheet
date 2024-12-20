@@ -15,6 +15,9 @@ const headerRowIndex = 2;
 const currentDataRowCount = mainSheet.getLastRow() - 1;
 const uniqueGFieldKey = "・代表者様氏名_フルネーム";
 const uniqueGColumnLetter = "D";
+const currentStatusFieldKey = "現在のステータス";
+const limitedUserFieldKey =
+  "Gハウスで建築検討することを前提とし_Gハウス限定会員への入会を希望しますか";
 
 // 顧客管理
 const clientManColumns = [

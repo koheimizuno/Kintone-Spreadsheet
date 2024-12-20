@@ -1,3 +1,6 @@
+let placeCount = 0;
+let incomeCount = 0;
+
 function headerVerification(header) {
   if (header === "・勤務先") {
     placeCount++;

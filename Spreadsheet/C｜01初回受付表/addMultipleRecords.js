@@ -1,6 +1,3 @@
-let placeCount = 0;
-let incomeCount = 0;
-
 function addMultipleRecords({ dataList, apiToken, appId, uniqueKey }) {
   const headers = dataList.map((item) => {
     let header = item[0][0];

@@ -46,6 +46,11 @@ function updateRecordWhenUpdateCell({ e, columns, apiToken, appId }) {
     },
   };
 
+  if (columnLetter === "T" && value === "希望する") {
+    record[currentStatusFieldKey] = { value: "限定会員" };
+    console.log("Successfully updated 限定会員!");
+  }
+
   updateSingleRecord({
     apiToken: apiToken,
     appId: appId,

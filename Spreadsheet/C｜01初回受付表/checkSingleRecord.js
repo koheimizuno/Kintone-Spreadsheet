@@ -8,6 +8,11 @@ function checkSingleRecord({ apiToken, appId, record, uniqueKey, uniqueVal }) {
     });
 
     if (singleRecordForCheck) {
+      if (record[limitedUserFieldKey].value.trim() === "希望する") {
+        if (!singleRecordForCheck[currentStatusFieldKey].value) {
+          record[currentStatusFieldKey] = { value: "限定会員" };
+        }
+      }
       updateSingleRecord({
         apiToken: apiToken,
         appId: appId,
@@ -15,6 +20,9 @@ function checkSingleRecord({ apiToken, appId, record, uniqueKey, uniqueVal }) {
         record: record,
       });
     } else {
+      if (record[limitedUserFieldKey].value.trim() === "希望する") {
+        record[currentStatusFieldKey] = { value: "限定会員" };
+      }
       addSingleRecord({
         apiToken: apiToken,
         appId: appId,
