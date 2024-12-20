@@ -30,9 +30,18 @@
         minWidth: "auto",
         width: "calc(100% - 62px)",
       });
-      $(".control-show-gaia").css("width", "400px");
+      $(".control-gaia:not(.control-group-field-gaia)").css("width", "400px");
       $(".control-value-gaia").css("textAlign", "left");
       $(".control-etc-gaia.control-spacer-field-gaia").css("minWidth", "250px");
+      $(".control-etc-gaia.control-hr-field-gaia").css("height", "28px");
+      for (let i = 8239193; i <= 8239208; i += 2) {
+        $(`.row-gaia .control-gaia.field-${i}`).css(
+          "borderRight",
+          "1px solid #ccc"
+        );
+      }
+      $("textarea").css("width", "100%");
+      $(".textarea-resize-cybozu").css({ left: "auto", right: "0" });
 
       // Format the date
       const classForDateFormat = [
