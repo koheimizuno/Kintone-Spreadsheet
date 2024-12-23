@@ -27,8 +27,21 @@
   background-color: #b3d0e7;
 }
 
+/* Custom Button */
+#user-js-client-self-wrapper,
+#user-js-client-partner-wrapper {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
 .group-label-gaia {
   display: none;
+}
+
+.layout-gaia.showlayout-gaia {
+  margin: 10px;
+  border: 1px #ccc solid;
 }
 
 .row-gaia .control-gaia {
@@ -40,6 +53,7 @@
   padding: 30px 20px;
   display: flex;
   flex-direction: column;
+  border: none;
 }
 
 .row-gaia {
@@ -56,10 +70,19 @@
   height: 20px;
 }
 
-/* Custom Button */
-#user-js-client-self-wrapper,
-#user-js-client-partner-wrapper {
-  position: absolute;
-  bottom: 0;
-  right: 0;
+.subtable-row-gaia {
+  padding: 0 30px;
+}
+
+td {
+  padding: 10px 0;
+}
+
+td .control-design-gaia {
+  height: 0;
+}
+
+.subtable-row-label-text-gaia {
+  font-size: 16px;
+  font-weight: bold;
 }

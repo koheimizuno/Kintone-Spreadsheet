@@ -17,9 +17,9 @@
     (event) => {
       let $appHeader = $(".gaia-argoui-app-titlebar");
       let themeColor = $appHeader.css("backgroundColor");
-      console.log("Current Theme Color:", themeColor);
 
       // Initialize Style
+      $("body").css("backgroundColor", "#e9f3fb");
       $("div:has(> #record-gaia)").css("backgroundColor", "#e9f3fb");
       $("#record-gaia").css("width", "calc(100% - 368px)");
       $(".layout-gaia").css({
@@ -50,12 +50,14 @@
         ".control-gaia.control-created_at-field-gaia .control-value-content-gaia",
       ];
 
-      $(classForDateFormat.join(", ")).each(function () {
-        let originalValue = $(this).text().trim();
-        if (originalValue) {
-          $(this).html(convertToJapaneseDateTime(originalValue));
-        }
-      });
+      setTimeout(() => {
+        $(classForDateFormat.join(", ")).each(function () {
+          let originalValue = $(this).text().trim();
+          if (originalValue) {
+            $(this).html(convertToJapaneseDateTime(originalValue));
+          }
+        });
+      }, 1000);
 
       // First check if tabs element already exists
       if (!$("#tabs").length) {
@@ -145,6 +147,11 @@ function toggleFieldsByTab(activeField) {
   ];
 
   fields.forEach((field) => {
+    if (activeField === "顧客管理") {
+      kintone.app.record.setFieldShown("アクション履歴", true);
+    } else {
+      kintone.app.record.setFieldShown("アクション履歴", false);
+    }
     kintone.app.record.setFieldShown(field, field === activeField);
   });
 }
