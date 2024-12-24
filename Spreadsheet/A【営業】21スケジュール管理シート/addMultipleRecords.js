@@ -5,8 +5,6 @@ function addMultipleRecords({ dataList, apiToken, appId, uniqueKey }) {
     return header;
   });
 
-  console.log(headers);
-
   const rows = Array.from({ length: dataList[0].length - 1 }, () => []);
 
   dataList.forEach((data) => {
@@ -16,8 +14,6 @@ function addMultipleRecords({ dataList, apiToken, appId, uniqueKey }) {
       }
     });
   });
-
-  console.log(rows);
 
   rows.forEach((row) => {
     if (row.every((cell) => cell === "")) {
