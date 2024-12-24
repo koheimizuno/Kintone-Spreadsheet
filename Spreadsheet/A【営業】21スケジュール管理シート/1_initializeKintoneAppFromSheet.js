@@ -18,11 +18,12 @@ const uniqueGColumnLetter = "G";
 
 // 顧客管理
 const clientManColumns = [
-  { colId: uniqueGColumnLetter, isDateField: false },
-  { colId: "T", isDateField: false },
-  { colId: "U", isDateField: false },
-  { colId: "V", isDateField: false },
-  { colId: "W", isDateField: false },
+  { colId: uniqueGColumnLetter },
+  { colId: "T" },
+  { colId: "U" },
+  { colId: "V" },
+  { colId: "W" },
+  { colId: "Y" },
 ];
 
 function addRecordsToKintone() {

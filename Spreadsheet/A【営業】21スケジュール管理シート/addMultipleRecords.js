@@ -1,36 +1,36 @@
 function addMultipleRecords({ dataList, apiToken, appId, uniqueKey }) {
   const headers = dataList.map((item) => {
-    let header = item[0][0];
+    let header = item[0];
     header = headerVerification(header);
     return header;
   });
+
+  console.log(headers);
 
   const rows = Array.from({ length: dataList[0].length - 1 }, () => []);
 
   dataList.forEach((data) => {
     data.forEach((id, index) => {
       if (index !== 0) {
-        rows[index - 1]?.push(id[0]);
+        rows[index - 1]?.push(id);
       }
     });
   });
+
+  console.log(rows);
 
   rows.forEach((row) => {
     if (row.every((cell) => cell === "")) {
       return;
     }
 
-    const record = {};
+    let record = {};
     const uniqueVal = row[headers.indexOf(uniqueKey)]
       .trim()
       .replace(/\s+/g, "");
 
     headers.forEach((header, colIndex) => {
-      if (header === "・代表者様氏名_フルネーム") {
-        record[header] = { value: row[colIndex].replace(/\s+/g, "") };
-      } else {
-        record[header] = { value: row[colIndex] };
-      }
+      record = recordVerification(record, header, row[colIndex]);
     });
 
     checkSingleRecord({

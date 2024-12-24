@@ -1,7 +1,7 @@
 function updateRecordWhenUpdateCell({ e, columns, apiToken, appId }) {
   const sheet = e.source.getActiveSheet();
   const range = e.range;
-  const value = e.value;
+  let value = e.value;
 
   // Get the row and column of the edited cell
   const row = range.getRow();
@@ -40,11 +40,20 @@ function updateRecordWhenUpdateCell({ e, columns, apiToken, appId }) {
     return console.error("The record does not exist!");
   }
 
-  const record = {
-    [header]: {
-      value: value,
-    },
-  };
+  let record = {};
+
+  if (header === "日付") {
+    console.log("Original", value);
+    const date = new Date((value - 25569) * 86400000); // Adjust for Google Sheets epoch
+    value = Utilities.formatDate(
+      date,
+      Session.getScriptTimeZone(),
+      "yyyy-MM-dd"
+    );
+    console.log("Updated", value);
+  }
+
+  record = recordVerification(record, header, value);
 
   updateSingleRecord({
     apiToken: apiToken,

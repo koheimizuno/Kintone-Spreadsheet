@@ -1,4 +1,4 @@
-function addRecordToKintoneAppWhenUpdate(e, columns, apiToken, appId) {
+function addRecordToKintoneAppWhenUpdate({ e, columns, apiToken, appId }) {
   const sheet = e.source.getActiveSheet();
   const range = e.range;
   const editedRow = range.getRow();
@@ -33,20 +33,17 @@ function addRecordToKintoneAppWhenUpdate(e, columns, apiToken, appId) {
   }
 
   // Prepare the record to send to Kintone
-  const record = {};
+  let record = {};
   const uniqueVal = row[columnLetterToIndex(uniqueGColumnLetter) - 1];
-  columns.forEach(({ colId, isDateField }) => {
+
+  columns.forEach(({ colId }) => {
     const header = headerVerification(
       headerRow[columnLetterToIndex(colId) - 1]
     );
+
     const value = row[columnLetterToIndex(colId) - 1];
-    record[header] = {
-      value: value
-        ? isDateField
-          ? new Date(value).toISOString().split("T")[0]
-          : value
-        : "",
-    };
+
+    record = recordVerification(record, header, value);
   });
 
   checkSingleRecord({
