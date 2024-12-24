@@ -13,6 +13,8 @@ function updateSingleRecord({ apiToken, appId, recordId, record }) {
     muteHttpExceptions: true,
   };
 
+  console.log("record", record);
+
   try {
     const response = UrlFetchApp.fetch(
       `${kintoneDomain}/k/v1/record.json`,
