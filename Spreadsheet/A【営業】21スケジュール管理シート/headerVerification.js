@@ -1,43 +1,26 @@
 function headerVerification(header) {
-  if (header === "お名前") {
-    return "・代表者様氏名_フルネーム";
-  }
+  switch (header) {
+    case "お名前":
+      return "・代表者様氏名_フルネーム";
+    case "資料送付":
+      return "日付";
+    default:
+      const replacements = [
+        { regex: /（/g, replacement: "_" },
+        { regex: /）/g, replacement: "" },
+        { regex: /？/g, replacement: "" },
+        { regex: /。/g, replacement: "" },
+        { regex: /、/g, replacement: "_" },
+        { regex: /：/g, replacement: "_" },
+        { regex: /「/g, replacement: "・" },
+        { regex: /」/g, replacement: "・" },
+        { regex: /\n/g, replacement: "_n" },
+      ];
 
-  if (header.includes("（")) {
-    header = header.replace(/（/g, "_");
-  }
+      for (const { regex, replacement } of replacements) {
+        header = header.replace(regex, replacement);
+      }
 
-  if (header.includes("）")) {
-    header = header.replace(/）/g, "");
+      return header;
   }
-
-  if (header.includes("？")) {
-    header = header.replace(/？/g, "");
-  }
-
-  if (header.includes("。")) {
-    header = header.replace(/。/g, "");
-  }
-
-  if (header.includes("、")) {
-    header = header.replace(/、/g, "_");
-  }
-
-  if (header.includes("：")) {
-    header = header.replace(/：/g, "_");
-  }
-
-  if (header.includes("「")) {
-    header = header.replace(/「/g, "・");
-  }
-
-  if (header.includes("」")) {
-    header = header.replace(/」/g, "・");
-  }
-
-  if (header.includes("\n")) {
-    header = header.replace(/\n/g, "_n");
-  }
-
-  return header;
 }
