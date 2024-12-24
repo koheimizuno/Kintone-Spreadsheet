@@ -3,16 +3,8 @@
   kintone.events.on(
     [
       "app.record.create.show",
-      "app.record.create.submit",
-      "app.record.create.submit.success",
       "app.record.edit.show",
-      "app.record.edit.submit",
-      "app.record.edit.submit.success",
-      "app.record.index.edit.submit",
-      "app.record.index.edit.submit.success",
       "app.record.detail.show",
-      "app.record.detail.submit",
-      "app.record.detail.submit.success",
     ],
     (event) => {
       let $appHeader = $(".gaia-argoui-app-titlebar");
@@ -43,21 +35,34 @@
       $("textarea").css("width", "100%");
       $(".textarea-resize-cybozu").css({ left: "auto", right: "0" });
 
-      // Format the date
-      const classForDateFormat = [
-        ".control-gaia.control-date-field-gaia .control-value-content-gaia",
-        ".control-gaia.control-datetime-field-gaia .control-value-content-gaia",
-        ".control-gaia.control-modified_at-field-gaia .control-value-content-gaia",
-        ".control-gaia.control-created_at-field-gaia .control-value-content-gaia",
-      ];
-
       setTimeout(() => {
+        // Format the date
+        const classForDateFormat = [
+          ".control-gaia.control-date-field-gaia .control-value-content-gaia",
+          ".control-gaia.control-datetime-field-gaia .control-value-content-gaia",
+          ".control-gaia.control-modified_at-field-gaia .control-value-content-gaia",
+          ".control-gaia.control-created_at-field-gaia .control-value-content-gaia",
+        ];
+
         $(classForDateFormat.join(", ")).each(function () {
           let originalValue = $(this).text().trim();
           if (originalValue) {
             $(this).html(convertToJapaneseDateTime(originalValue));
           }
         });
+
+        // Display the latest 3 rows in the table
+        let $tbody = $(".subtable-gaia tbody");
+        if ($tbody.length > 0) {
+          // Get all the <tr> elements in the tbody
+          let $rows = $tbody.find("tr");
+          // Keep only the last 2 rows
+          let $latestRows = $rows.slice(-3);
+          // Clear the tbody content
+          $tbody.empty();
+          // Append the latest rows back to the tbody
+          $tbody.append($latestRows);
+        }
       }, 100);
 
       // First check if tabs element already exists
