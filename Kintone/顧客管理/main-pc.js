@@ -46,6 +46,7 @@
       // Format the date
       const classForDateFormat = [
         ".control-gaia.control-date-field-gaia .control-value-content-gaia",
+        ".control-gaia.control-datetime-field-gaia .control-value-content-gaia",
         ".control-gaia.control-modified_at-field-gaia .control-value-content-gaia",
         ".control-gaia.control-created_at-field-gaia .control-value-content-gaia",
       ];
@@ -57,7 +58,7 @@
             $(this).html(convertToJapaneseDateTime(originalValue));
           }
         });
-      }, 1000);
+      }, 100);
 
       // First check if tabs element already exists
       if (!$("#tabs").length) {
