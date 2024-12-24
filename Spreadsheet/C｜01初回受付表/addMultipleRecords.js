@@ -1,6 +1,6 @@
 function addMultipleRecords({ dataList, apiToken, appId, uniqueKey }) {
   const headers = dataList.map((item) => {
-    let header = item[0][0];
+    let header = item[0];
     header = headerVerification(header);
     return header;
   });
@@ -10,7 +10,7 @@ function addMultipleRecords({ dataList, apiToken, appId, uniqueKey }) {
   dataList.forEach((data) => {
     data.forEach((id, index) => {
       if (index !== 0) {
-        rows[index - 1]?.push(id[0]);
+        rows[index - 1]?.push(id);
       }
     });
   });
@@ -20,11 +20,13 @@ function addMultipleRecords({ dataList, apiToken, appId, uniqueKey }) {
       return;
     }
 
-    const record = {};
-    const uniqueVal = row[headers.indexOf(uniqueKey)].trim();
+    let record = {};
+    const uniqueVal = row[headers.indexOf(uniqueKey)]
+      .trim()
+      .replace(/\s+/g, "");
 
     headers.forEach((header, colIndex) => {
-      record[header] = { value: row[colIndex] };
+      record = recordVerification(record, header, row[colIndex]);
     });
 
     checkSingleRecord({

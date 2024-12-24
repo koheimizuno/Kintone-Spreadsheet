@@ -34,7 +34,10 @@ function addRecordToKintoneAppWhenUpdate({ e, columns, apiToken, appId }) {
 
   // Prepare the record to send to Kintone
   let record = {};
-  const uniqueVal = row[columnLetterToIndex(uniqueGColumnLetter) - 1];
+  const uniqueVal = row[columnLetterToIndex(uniqueGColumnLetter) - 1].replace(
+    /\s+/g,
+    ""
+  );
 
   columns.forEach(({ colId }) => {
     const header = headerVerification(

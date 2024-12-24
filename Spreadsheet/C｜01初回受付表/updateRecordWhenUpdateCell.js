@@ -40,11 +40,9 @@ function updateRecordWhenUpdateCell({ e, columns, apiToken, appId }) {
     return console.error("The record does not exist!");
   }
 
-  const record = {
-    [header]: {
-      value: value,
-    },
-  };
+  let record = {};
+
+  record = recordVerification(record, header, value);
 
   if (columnLetter === "T" && value === "希望する") {
     record[currentStatusFieldKey] = { value: "限定会員" };

@@ -2,59 +2,38 @@ let placeCount = 0;
 let incomeCount = 0;
 
 function headerVerification(header) {
-  if (header === "・勤務先") {
-    placeCount++;
-    if (placeCount === 1) {
-      return "・勤務先_代表者";
-    } else if (placeCount === 2) {
-      return "・勤務先_パートナー";
-    }
-  }
+  switch (header) {
+    case "・勤務先":
+      placeCount++;
+      return placeCount === 1
+        ? "・勤務先_代表者"
+        : placeCount === 2
+        ? "・勤務先_パートナー"
+        : header;
+    case "・年収":
+      incomeCount++;
+      return incomeCount === 1
+        ? "・年収_代表者"
+        : incomeCount === 2
+        ? "・年収_パートナー"
+        : header;
+    default:
+      const replacements = [
+        { regex: /（/g, replacement: "_" },
+        { regex: /）/g, replacement: "" },
+        { regex: /？/g, replacement: "" },
+        { regex: /。/g, replacement: "" },
+        { regex: /、/g, replacement: "_" },
+        { regex: /：/g, replacement: "_" },
+        { regex: /「/g, replacement: "・" },
+        { regex: /」/g, replacement: "・" },
+        { regex: /\n/g, replacement: "_n" },
+      ];
 
-  if (header === "・年収") {
-    incomeCount++;
-    if (incomeCount === 1) {
-      return "・年収_代表者";
-    } else if (incomeCount === 2) {
-      return "・年収_パートナー";
-    }
-  }
+      for (const { regex, replacement } of replacements) {
+        header = header.replace(regex, replacement);
+      }
 
-  if (header.includes("（")) {
-    header = header.replace(/（/g, "_");
+      return header;
   }
-
-  if (header.includes("）")) {
-    header = header.replace(/）/g, "");
-  }
-
-  if (header.includes("？")) {
-    header = header.replace(/？/g, "");
-  }
-
-  if (header.includes("。")) {
-    header = header.replace(/。/g, "");
-  }
-
-  if (header.includes("、")) {
-    header = header.replace(/、/g, "_");
-  }
-
-  if (header.includes("：")) {
-    header = header.replace(/：/g, "_");
-  }
-
-  if (header.includes("「")) {
-    header = header.replace(/「/g, "・");
-  }
-
-  if (header.includes("」")) {
-    header = header.replace(/」/g, "・");
-  }
-
-  if (header.includes("\n")) {
-    header = header.replace(/\n/g, "_n");
-  }
-
-  return header;
 }
