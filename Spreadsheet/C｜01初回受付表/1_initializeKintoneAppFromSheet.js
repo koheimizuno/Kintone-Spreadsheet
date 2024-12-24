@@ -22,6 +22,7 @@ const limitedUserFieldKey =
 // 顧客管理
 const clientManColumns = [
   { colId: uniqueGColumnLetter },
+  { colId: "B" },
   { colId: "E" },
   { colId: "H" },
   { colId: "I" },
@@ -31,6 +32,7 @@ const clientManColumns = [
   { colId: "O" },
   { colId: "S" },
   { colId: "T" },
+  { colId: "U" },
   { colId: "X" },
   { colId: "Y" },
   { colId: "Z" },

@@ -27,7 +27,7 @@ function headerVerification(header) {
         { regex: /：/g, replacement: "_" },
         { regex: /「/g, replacement: "・" },
         { regex: /」/g, replacement: "・" },
-        { regex: /\n/g, replacement: "_n" },
+        { regex: /\n/g, replacement: "_" },
       ];
 
       for (const { regex, replacement } of replacements) {

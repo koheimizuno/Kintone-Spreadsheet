@@ -13,6 +13,21 @@ function checkSingleRecord({ apiToken, appId, record, uniqueKey, uniqueVal }) {
           record[currentStatusFieldKey] = { value: "限定会員" };
         }
       }
+
+      let originalActionHistory = singleRecordForCheck["アクション履歴"].value;
+      let toModifyActionHistory = record["アクション履歴"];
+
+      if (
+        originalActionHistory[originalActionHistory.length - 1].value[
+          "営業履歴"
+        ].value === "資料請求"
+      ) {
+        originalActionHistory.push(toModifyActionHistory);
+        record["アクション履歴"] = { value: originalActionHistory };
+      } else {
+        record["アクション履歴"] = { value: originalActionHistory };
+      }
+
       updateSingleRecord({
         apiToken: apiToken,
         appId: appId,
