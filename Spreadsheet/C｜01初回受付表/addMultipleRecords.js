@@ -15,7 +15,7 @@ function addMultipleRecords({ dataList, apiToken, appId, uniqueKey }) {
     });
   });
 
-  rows.forEach((row) => {
+  rows.forEach((row, index) => {
     if (row.every((cell) => cell === "")) {
       return;
     }

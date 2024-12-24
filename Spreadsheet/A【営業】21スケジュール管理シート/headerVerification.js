@@ -2,7 +2,7 @@ function headerVerification(header) {
   switch (header) {
     case "お名前":
       return "・代表者様氏名_フルネーム";
-    case "資料送付":
+    case "初回反響日":
       return "日付";
     default:
       const replacements = [

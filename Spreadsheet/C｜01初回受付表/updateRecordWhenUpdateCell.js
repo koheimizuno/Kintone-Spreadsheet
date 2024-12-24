@@ -1,7 +1,7 @@
 function updateRecordWhenUpdateCell({ e, columns, apiToken, appId }) {
   const sheet = e.source.getActiveSheet();
   const range = e.range;
-  const value = e.value;
+  let value = e.value;
 
   // Get the row and column of the edited cell
   const row = range.getRow();
@@ -42,11 +42,40 @@ function updateRecordWhenUpdateCell({ e, columns, apiToken, appId }) {
 
   let record = {};
 
+  if (header === "タイムスタンプ") {
+    const date = new Date((value - 25569) * 86400000); // Adjust for Google Sheets epoch
+    value = Utilities.formatDate(
+      date,
+      Session.getScriptTimeZone(),
+      "yyyy-MM-dd"
+    );
+  }
+
   record = recordVerification(record, header, value);
 
   if (columnLetter === "T" && value === "希望する") {
     record[currentStatusFieldKey] = { value: "限定会員" };
     console.log("Successfully updated 限定会員!");
+  }
+
+  let originalActionHistory = recordByID["アクション履歴"].value;
+  let toModifyActionHistory = record["アクション履歴"];
+
+  if (
+    originalActionHistory[originalActionHistory.length - 1].value["営業履歴"]
+      .value === "資料請求"
+  ) {
+    originalActionHistory.push(toModifyActionHistory);
+    record["アクション履歴"] = { value: originalActionHistory };
+  } else {
+    console.log("The current action is not 「資料請求」.");
+    originalActionHistory = originalActionHistory.map((item) => {
+      if (item.value.営業履歴.value === "限定会員") {
+        item.value.日付.value = toModifyActionHistory.value.日付.value;
+        return item;
+      } else return item;
+    });
+    record["アクション履歴"] = { value: originalActionHistory };
   }
 
   updateSingleRecord({

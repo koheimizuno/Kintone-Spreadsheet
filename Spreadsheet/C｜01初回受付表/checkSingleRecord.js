@@ -18,13 +18,14 @@ function checkSingleRecord({ apiToken, appId, record, uniqueKey, uniqueVal }) {
       let toModifyActionHistory = record["アクション履歴"];
 
       if (
-        originalActionHistory[originalActionHistory.length - 1].value[
+        originalActionHistory[originalActionHistory.length - 1]?.value[
           "営業履歴"
         ].value === "資料請求"
       ) {
         originalActionHistory.push(toModifyActionHistory);
         record["アクション履歴"] = { value: originalActionHistory };
       } else {
+        console.log("The current action is not 「資料請求」.");
         record["アクション履歴"] = { value: originalActionHistory };
       }
 
@@ -38,6 +39,7 @@ function checkSingleRecord({ apiToken, appId, record, uniqueKey, uniqueVal }) {
       if (record[limitedUserFieldKey].value.trim() === "希望する") {
         record[currentStatusFieldKey] = { value: "限定会員" };
       }
+      delete record["アクション履歴"];
       addSingleRecord({
         apiToken: apiToken,
         appId: appId,

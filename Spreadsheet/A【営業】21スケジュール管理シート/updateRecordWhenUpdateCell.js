@@ -53,6 +53,23 @@ function updateRecordWhenUpdateCell({ e, columns, apiToken, appId }) {
 
   record = recordVerification(record, header, value);
 
+  let originalActionHistory = recordByID["アクション履歴"].value;
+
+  if (originalActionHistory.length !== 0) {
+    console.log("There are actions after 「資料請求」.");
+    originalActionHistory = originalActionHistory.map((item) => {
+      if (item.value.営業履歴.value === "資料請求") {
+        item.value.日付.value = toModifyActionHistory.value.日付.value;
+        return item;
+      } else return item;
+    });
+    record["アクション履歴"] = { value: originalActionHistory };
+  } else {
+    record["アクション履歴"] = {
+      value: [record["アクション履歴"]],
+    };
+  }
+
   updateSingleRecord({
     apiToken: apiToken,
     appId: appId,

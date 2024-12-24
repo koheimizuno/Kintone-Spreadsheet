@@ -6,14 +6,10 @@ function recordVerification(record, header, value) {
 
     case "日付":
       record["アクション履歴"] = {
-        value: [
-          {
-            value: {
-              [header]: { value: value },
-              営業履歴: { value: "資料請求" },
-            },
-          },
-        ],
+        value: {
+          [header]: { value: value },
+          営業履歴: { value: "資料請求" },
+        },
       };
       break;
 

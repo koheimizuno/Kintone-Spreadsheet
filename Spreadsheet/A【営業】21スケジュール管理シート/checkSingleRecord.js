@@ -8,6 +8,17 @@ function checkSingleRecord({ apiToken, appId, record, uniqueKey, uniqueVal }) {
     });
 
     if (singleRecordForCheck) {
+      let originalActionHistory = singleRecordForCheck["アクション履歴"].value;
+
+      if ( originalActionHistory.length !== 0 ) {
+        console.log("There are actions after 「資料請求」.");
+        record["アクション履歴"] = { value: originalActionHistory };
+      } else {
+        record["アクション履歴"] = {
+          value: [record["アクション履歴"]],
+        };
+      }
+
       updateSingleRecord({
         apiToken: apiToken,
         appId: appId,
@@ -15,6 +26,9 @@ function checkSingleRecord({ apiToken, appId, record, uniqueKey, uniqueVal }) {
         record: record,
       });
     } else {
+      record["アクション履歴"] = {
+        value: [record["アクション履歴"]],
+      };
       addSingleRecord({
         apiToken: apiToken,
         appId: appId,

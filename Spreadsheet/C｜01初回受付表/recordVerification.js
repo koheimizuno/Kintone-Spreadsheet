@@ -25,6 +25,7 @@ function recordVerification(record, header, value) {
       break;
   }
 
+
   record["アクション履歴"].value = actionHistory;
 
   return record;
