@@ -11,11 +11,12 @@ function getColumnListById(item) {
       if (key === 0) return item[0];
       else {
         if (item[0] instanceof Date) {
-          return Utilities.formatDate(
+          let formattedDate = Utilities.formatDate(
             item[0],
-            Session.getScriptTimeZone(),
-            "yyyy-MM-dd"
+            "Asia/Tokyo",
+            "yyyy-MM-dd'T'HH:mm:ss"
           );
+          return `${formattedDate}+09:00`;
         } else return item[0];
       }
     });

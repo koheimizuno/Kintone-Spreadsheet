@@ -63,7 +63,7 @@
           // Append the latest rows back to the tbody
           $tbody.append($latestRows);
         }
-      }, 100);
+      }, 500);
 
       // First check if tabs element already exists
       if (!$("#tabs").length) {

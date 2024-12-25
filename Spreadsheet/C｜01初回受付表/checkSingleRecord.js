@@ -26,6 +26,19 @@ function checkSingleRecord({ apiToken, appId, record, uniqueKey, uniqueVal }) {
         record["アクション履歴"] = { value: originalActionHistory };
       } else {
         console.log("The current action is not 「資料請求」.");
+        originalActionHistory = originalActionHistory.map((item) => {
+          if (item.value.営業履歴.value === "限定会員") {
+            if (toModifyActionHistory.value?.日付) {
+              item.value.日付.value = toModifyActionHistory.value?.日付.value;
+            }
+            if (toModifyActionHistory.value?.次回アポ) {
+              item.value.次回アポ.value =
+                toModifyActionHistory.value?.次回アポ.value;
+            }
+            return item;
+          } else return item;
+        });
+
         record["アクション履歴"] = { value: originalActionHistory };
       }
 

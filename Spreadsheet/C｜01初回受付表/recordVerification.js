@@ -11,7 +11,7 @@ function recordVerification(record, header, value) {
       break;
 
     case "タイムスタンプ":
-      actionHistory["日付"] = { value: value };
+      actionHistory["日付"] = { value: value.split("T")[0] };
       actionHistory["営業履歴"] = { value: "限定会員" };
       actionHistory["確度"] = { value: "" };
       break;
@@ -24,7 +24,6 @@ function recordVerification(record, header, value) {
       record[header] = { value: value };
       break;
   }
-
 
   record["アクション履歴"].value = actionHistory;
 

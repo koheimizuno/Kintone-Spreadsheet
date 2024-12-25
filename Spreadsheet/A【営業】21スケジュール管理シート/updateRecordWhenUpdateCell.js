@@ -59,7 +59,7 @@ function updateRecordWhenUpdateCell({ e, columns, apiToken, appId }) {
     console.log("There are actions after 「資料請求」.");
     originalActionHistory = originalActionHistory.map((item) => {
       if (item.value.営業履歴.value === "資料請求") {
-        item.value.日付.value = toModifyActionHistory.value.日付.value;
+        item.value.日付.value = record["アクション履歴"].value?.日付.value;
         return item;
       } else return item;
     });
